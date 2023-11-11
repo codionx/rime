@@ -1,673 +1,507 @@
 ## Rime 鼠须管（Squirrel）朙月拼音、小鹤双拼、自然码双拼配置详解
 
-![](https://tvax3.sinaimg.cn/large/008eZBHKly1gpbtyhi91wj31jk1j8wkf.jpg)
+- 欢迎加入 [Rime 鼠须管电报群](https://t.me/rimeim)
+- 欢迎关注 [Twitter](https://twitter.com/muzhilau)
 
-## 保护个人隐私，请勿使用联网输入法。推荐使用【原生输入法】或【鼠须管】
+### 特点
 
-### 主要特点
-
-* 朙月拼音、朙月拼音·简化字、小鹤双拼、自然码双拼、大写数字
-* 170 万搜狗词库
-* Emoji 与 macOS 同步
+* 朙月拼音（默认）、小鹤双拼、自然码双拼
+* 词库不丢失，支持多平台同步
+* 百万[搜狗](https://pinyin.sogou.com/dict/cate/index/167)词库
+* Emoji
 * 动态输入时间、日期、星期
-* 速度快、开源、不联网保护个人隐私、DIY 空间大
-* 词库不丢失
-* *上手难度大，前期自造词准确度低*
+* 速度快、开源、保护隐私、自定义强
 
-[![](https://img.shields.io/badge/Twitter-%E6%8E%A8%E7%89%B9-%231BA1F3)](https://twitter.com/yifangme) [![](https://img.shields.io/badge/Telegram-%E8%AE%A8%E8%AE%BA%E7%BE%A4-%23D0104C)](https://t.me/v2expro) 
 
----
+### [👏 出售美国实体卡、GV、Gmail、ChatGPT、Apple ID、礼品卡 👏](https://github.com/ssnhd/googlevoice)
 
-### 【配置文件】更新日志
+[![](https://i.imgur.com/RELjhoN.png)](https://github.com/ssnhd/googlevoice)
 
-#### 2021-07
-- 【增加】[综合词库](https://github.com/maomiui/rime/blob/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/luna_pinyin.zonghe.dict.yaml)增加三角叠字、左右叠字、四方叠字，例如：`垚` `雦` `叕`
 
-#### 2021-06
-- 【替换】`luna_pinyin.dict.yaml` 使用《通用规范汉字表》
-- 【增加】`Tab` 键：默认设为拼音分词功能
-- 【修复】Emoji：日本旗帜因编码重复导致“🇯🇵”不显示问题
+## 安装
 
-#### 2021-05
-- 【修复】朙月拼音和朙月拼音简化字：开启模糊音无法使用超级简拼
-- 【增加】macOS 11.3 Emoji
-- 【增加】搜狗词库：增加至约 172 万
+下载 <a href="https://rime.im/" target="_blank">鼠须管</a>，安装后切换到 Rime 输入法，开始使用。\
+默认繁体输出，通过组合键 `Control+｀` 或 `F4` 键切换输入方案，例如选择【朙月拼音·简化字】简体输出。
 
-#### 2021-04
+> 注：建议 Mac 打开 Squirrel 通知，之后部署会提示是否成功。
 
-- 【增加】小鹤双拼和自然码双拼（[双拼练习](https://api.ihint.me/shuang/) 和 [自然码词库](https://github.com/SleepyBag/rime-zrm)）
-- 【增加】Emoji：更新中文编码和增加繁体编码
-- 【修改】动态时间日期星期：编码 `sj → time`、`rq → date`、`xq → week`
-- 【修改】搜狗词库：编码更改为 `汉字 + 拼音`和繁体
-- 【增加】朙月拼音（繁体）输入方案
-- 【增加】[大写数字](#大写数字)输入方案
-- 【增加】Windows 10 皮肤
-- 【增加】英文词典：常用词
-- 【删除】自定义短语和英文词典：重复词条
-- 【修复】候选词：无法更改个数 [#22](https://github.com/maomiui/rime/issues/22)
-- 【增加】[回车清码](#回车清码)功能
+## 备份初始配置（可选）
 
-#### 2021-03
-
-- 【删除】搜狗词库：12 个分类合并为一个 `luna_pinyin.sogou.dict.yaml`，并删除重复词条
-- 【更改】~~`luna_pinyin.cn_en.dict.yaml`~~ 更改为 `luna_pinyin.zonghe.dict.yaml`
-
-#### 2021-02
-
-- 【删除】动态日期：美式格式 ~~`"%m-%d-%Y"`~~
-- 【删除】动态时间：含日期格式 ~~`"%Y%m%d%H%M%S"`~~
-
----
-
-### 目录
-
-1. [安装输入法](#安装输入法)
-2. [配置文件路径](#配置文件路径)
-3. [备份配置文件](#备份配置文件)
-4. [定制输入法](#定制输入法)
-5. [输入方案](#输入方案)
-6. [候选词个数](#候选词个数)
-7. [中英文切换](#中英文切换)
-8. [翻页键](#翻页键)
-9. [常见快捷键](#常见快捷键)
-10. [回车清码](#回车清码)
-11. [词库文档格式](#词库文档格式)
-12. [外挂词库](#外挂词库)
-13. [搜狗词库转换方法](https://github.com/maomiui/sogou-dict-transform)
-14. [Emoji](#修改-emoji)
-15. [载入词库和 Emoji](#载入词库和-Emoji)
-16. [自定义快捷字符](#自定义快捷字符)
-17. [模糊音](#模糊音)
-18. [智能纠错](#智能纠错)
-19. [动态时间｜日期｜星期](#动态时间日期星期)
-20. [自定义短语](#自定义短语)
-21. [皮肤](#皮肤)
-22. [关闭 Emoji](#关闭-emoji)
-23. [特定程序里关闭开启中文输入](#特定程序里关闭开启中文输入)
-24. [特定程序里中文输入英文标点](#特定程序里中文输入英文标点)
-25. [删除误上屏的错词](#删除误上屏的错词)
-26. [大写数字](#大写数字)
-27. [同步用户数据](#同步用户数据)
-28. [删除字体不一的生僻字](https://github.com/maomiui/rime-rare-word)
-29. [报错日志](#报错日志)
-30. [卸载](#卸载鼠须管)
----
-### 安装输入法
-本品适用于 macOS 10.9+
-1. 下载[鼠须管](https://rime.im/)，初次安装后，请注销并重新登录。
-2. 菜单栏点选【ㄓ】图标，开始使用输入法。
-> 默认〔朙月拼音〕繁体输入，通过快捷键 `Control+｀` 或 `F4` 呼出方案，切换输入方式，例如选择〔朙月拼音·简化字〕简体输入。
-
----
-
-### 配置文件路径
-
-* 程序配置路径: `/Library/Input Methods/Squirrel.app/Contents/SharedSupport`
-* 用户配置路径: `~/Library/Rime`（一般情况下，我们只用到这个）
-
----
-
-### 备份配置文件
-
-为防止[定制输入法](#定制输入法)操作不当需要重新安装鼠须管，建议先为 Rime 做个备份。
-
-在【终端】中键入或粘贴以下命令，按回车键。
+防止操作不当配置无法恢复，可以为初始配置做个备份。在【终端】中输入以下命令，按回车键，会出现一个【Rime.bak】文件夹即备份。
 
 ```
 cp -r ~/Library/Rime ~/Library/Rime.bak
 ```
 
-鼠须管配置文件路径（`~/Library/Rime`）多出【Rime.bak】文件夹，即备份。
+![](https://i.imgur.com/1EFPjAK.png)
 
-![](https://tvax2.sinaimg.cn/large/008jMPXrgy1gr7uvc1gflj31m40v00vw.jpg)
+> 还原：初始配置【Rime】文件夹清空，将【Rime.bak】内的文件复制粘贴过去，点击菜单栏【ㄓ】-【重新部署】。
 
-> 还原方法：【Rime】文件夹清空，再将【Rime.bak】文件夹内的文件粘贴过去，重新部署。
+## 定制
 
----
+1. 下载 [配置](https://github.com/ssnhd/rime/archive/refs/heads/master.zip) 解压得到【配置文件】和【花园明朝字体】，将字体安装到字体册，原因是 Mac 缺少部分生僻字。
+2. 点击菜单栏【ㄓ】-【用户设定】，将【配置文件】里所有文件粘贴进去，并选择覆盖。
+3. 点击菜单栏【ㄓ】-【重新部署】（快捷键 `Control+Option+｀`），至此完成定制配置，可以愉快的使用了。
 
-### 定制输入法
+![](https://i.imgur.com/3B0Aucj.png)
 
-下载[配置文件](https://img.shields.io/badge/Download-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%234BC022)解压得到【配置文件】和【花园明朝字体】，因为 macOS 不含生僻字，所以将花园明朝字体安装到字体册。
+## 全局设置
 
-![](https://i.loli.net/2021/04/19/uwNgmUX4prI6Kyq.png)
+全局设置文件 `default.custom.yaml`，包含输入方案、候选词个数、中英文切换、快捷键。
 
-点选**用户设定**（`~/Library/Rime`）打开 Rime 目录文件夹，将【配置文件】 里所有文件复制粘贴进去，并选择覆盖。
+> 注：建议用 VSCode 软件打开文件，因分隔符问题还需要 <a href="https://ssnhd.com/2021/10/01/VSCode" target="_blank">修改 Tab 键</a>。
 
-![](https://ww1.sinaimg.cn/large/008eZBHKgy1gn45cxyphgj31e20ca7e9.jpg)
+#### 输入方案
 
-```
-# 定制配置文件说明
-custom_phrase.txt                 # 自定义短语
-default.custom.yaml               # 全局设置
-double_pinyin_flypy.custom.yaml   # 小鹤双拼
-double_pinyin_flypy.schema.yaml   # 小鹤双拼
-double_pinyin.custom.yaml         # 自然码双拼
-double_pinyin.schema.yaml         # 自然码双拼
-easy_en.dict.yaml                 # 英文词典
-easy_en.schema.yaml               # 英文词典
-luna_pinyin_simp.custom.yaml      # 朙月拼音·简化字
-luna_pinyin_simp.schema.yaml      # 朙月拼音·简化字
-luna_pinyin.custom.yaml           # 朙月拼音
-luna_pinyin.schema.yaml           # 朙月拼音
-luna_pinyin.extended.dict.yaml    # 挂载词库
-luna_pinyin.dict.yaml             # 词库（汉字）
-luna_pinyin.sogou.dict.yaml       # 词库（搜狗）
-luna_pinyin.zonghe.dict.yaml      # 词库（综合）
-numbers.schema.yaml               # 大写数字
-opencc                            
-  ├── emoji_word.txt              # Emoji
-  └── emoji.json           
-rime.lua                          # 动态时间、日期、星期
-squirrel.custom.yaml              # 皮肤
-```
+按 `Control+｀` 显示输入方案。如果你不用双拼或大写数字，可以将其连同配置里的文件一并删除；同理，你也可以添加其他方案，例如：[五笔、地球拼音、袖珍拼音](https://github.com/rime/plum#essentials)。
 
-
-点击**重新部署**（快捷键 `Control+Option+｀`）。
-
-> 注：➊ 修改任何配置文件都要**重新部署**生效；➋ 本配置里搜狗词库较大，第一次部署时间会稍长。
-
-![](https://ww1.sinaimg.cn/large/008eZBHKgy1gn45fjrwu3j31e00c87e7.jpg)
-
-到这里已完成定制，如对功能进行探索或调整，继续往下看。
-
----
-### 输入方案
-
-打开 `default.custom.yaml` 文件，添加输入方案，按 `Control+｀` 切换输入方案。前面加 `#` 关闭方案。
+> 注：输入方案都是以 `.schema.yaml` 命名，例如 `luna_pinyin_simp.schema.yaml`，可以修改该文件进行定制，但是输入法一旦更新，这个文件也会跟着更新，定制就会丢失。\
+> 解决办法是新建文件 `luna_pinyin_simp.custom.yaml`，然后在里面定制，所有方案对应的补丁名都是 `<方案名>.custom.yaml`。
 
 ```
-patch:
-  schema_list:
-    - schema: luna_pinyin_simp      # 朙月拼音简化字
-    - schema: luna_pinyin           # 朙月拼音
-    - schema: double_pinyin_flypy   # 小鹤双拼
-    - schema: double_pinyin         # 自然码双拼
-    - schema: numbers               # 大写数字
+schema_list:
+  - schema: luna_pinyin_simp      # 朙月拼音
+  - schema: double_pinyin_flypy   # 小鹤双拼
+  - schema: double_pinyin         # 自然码双拼
+  - schema: numbers               # 大写数字
 ```
 
-> 注1：其他输入方案参考[东风破](https://github.com/rime/plum)。
-> 
-> 注2：非程序员用户可能不知如何打开 `.yaml` 文件，推荐使用 [Visual Studio Code](https://code.visualstudio.com/)。
+#### 候选词个数
 
----
-
-### 候选词个数
-
-打开 `default.custom.yaml` 文件，找到下面代码，修改后面的数字即候选词数量。
+修改后面的数字更改候选词个数。
 
 ```
-  menu/page_size: 9   # 候选词个数
+menu/page_size: 9
 ```
 
----
+#### 中英文切换
 
-### 中英文切换
-
-打开 `default.custom.yaml` 文件，找到下面代码，设置切换中英文。
+下面代码表示使用 `Caps` 键切换大小写，使用 `Shift` 键切换中英文。
 
 ```
-  ascii_composer/good_old_caps_lock: true   # 若为true，caps只切换大小写
-  ascii_composer/switch_key:
-    Caps_Lock: commit_code                    
-    Shift_L: commit_code   # 左Shift，关闭noop
-    Shift_R: noop          # 右Shift
-    Control_L: noop        # 左Control
-    Control_R: noop        # 右Control
+ascii_composer/good_old_caps_lock: true # 若为 true， Caps 只切换大小写
+ascii_composer/switch_key:
+  Caps_Lock: commit_code                # Caps 键
+  Shift_L: commit_code                  # 左 Shift，切换中英文
+  Shift_R: commit_code                  # 右 Shift，切换中英文
+  Control_L: noop                       # 左 Control，屏蔽该切换键
+  Control_R: noop                       # 右 Control，屏蔽该切换键
 ```
 
-> 注1：Mac 上鼠须管不能区分左右 `Shift` ，因此左右 `Shift` 键的作用一样。
->
-> 注2：如果 `caps` 键不能切换大小写，打开系统偏好设置 > 键盘 > 输入法 > 取消勾选「使用大写锁定键切换“美国”输入模式」
+> 注：如果 Caps 键不能切换大小写，打开 Mac 系统偏好设置 > 键盘 > 输入法 > 取消【使用大写锁定键切换“美国”输入模式】。
 
----
+其他切换策略：
 
-### 翻页键
+- **inline_ascii**：在输入法的临时英文编辑区内输入字母、数字、符号、空格等，回车上屏后自动复位到中文
+- **commit_text**：已输入的候选文字上屏并切换至英文输入模式
 
-打开 `default.custom.yaml` 文件，找到下面代码，设置翻页，关闭某项在前面添加 `#`。
+#### 翻页快捷键
 
-```
-  key_binder/bindings: # 翻页
-    - { when: composing, accept: ISO_Left_Tab, send: Page_Up }  # "tab"翻页
-    - { when: composing, accept: Shift+Tab, send: Page_Up }
-    - { when: composing, accept: Tab, send: Page_Down }     
-    - { when: paging, accept: minus, send: Page_Up }            # "-"上一页
-    - { when: has_menu, accept: equal, send: Page_Down }        # "="下一页
-    - { when: paging, accept: bracketleft, send: Page_Up }      # "["上一页
-    - { when: has_menu, accept: bracketright, send: Page_Down } # "]"下一页
-    #- { when: paging, accept: comma, send: Page_Up }            # ","上一页
-    #- { when: has_menu, accept: period, send: Page_Down }       # "."下一页
-```
-
----
-
-### 常见快捷键
-
-打开 `default.custom.yaml` 文件，找到下面代码，设置快捷键。
+- **when**：有几种状态 `composing`、`has_menu`、`paging`
+- **accept**：控制接受的按键 `minus`、`equal`,、`period`、`comma`、`bracketleft`、`bracketright`
+- **send**：控制动作 `Page_Up`、`Page_Down`、`Escape`(清空输入码)
 
 ```
-  # - {accept: "Control+a", send: Home, when: composing}                   # 光标移至首
-  # - {accept: "Control+e", send: End, when: composing}                    # 光标移至尾
-  # - {accept: "Control+Shift+1", select: .next, when: always}             # 切换输入方案
-  # - {accept: "Control+Shift+2", toggle: ascii_mode, when: always}        # 中英文切换
-  # - {accept: "Control+Shift+3", toggle: full_shape, when: always}        # 全角/半角切换
-    - {accept: "Control+Shift+4", toggle: simplification, when: always}    # 繁简体切换
-  # - {accept: "Control+Shift+5", toggle: extended_charset, when: always}  # 通用/增广切换（显示生僻字）
+# 翻页
+- { when: has_menu, accept: Tab, send: Page_Down }            # "tab" 键翻页, 和下一条 "tab" 键分词只能二选一
+- { when: composing, accept: Shift+Tab, send: Shift+Left }    # "Shift+Tab" 键向左选拼音分词
+- { when: paging, accept: minus, send: Page_Up }              # "-" 上一页
+- { when: has_menu, accept: equal, send: Page_Down }          # "=" 下一页
+- { when: paging, accept: comma, send: Page_Up }              # "," 上一页
+- { when: has_menu, accept: period, send: Page_Down }         # "." 下一页
+- { when: paging, accept: bracketleft, send: Page_Up }        # "[" 上一页
+- { when: has_menu, accept: bracketright, send: Page_Down }   # "]" 下一页
+
+# 快捷键
+- { when: has_menu, accept: semicolon, send: 2 }              # ":" (分号)选择第 2 个候选词
+- { when: has_menu, accept: apostrophe, send: 3 }             # "'" (引号)选择第 3 个候选词
+- { when: composing, accept: Shift+Tab, send: Shift+Left }    # "Shift+Tab" 键向左选拼音分词
+- { when: composing, accept: Control+a, send: Home }          # "Control+a" 光标移至首
+- { when: composing, accept: Control+e, send: End }           # "Control+e" 光标移至尾
+- { when: composing, accept: Control+g, send: Escape }        # "Control+g" 清码
+- { when: composing, accept: Return, send: Escape }           # "Return" 回车清码
+- { when: always, accept: Control+Shift+1, select: .next }             # 切换输入方案
+- { when: always, accept: Control+Shift+2, toggle: ascii_mode }        # 中/英文切换
+- { when: always, accept: Control+Shift+3, toggle: full_shape }        # 全角/半角切换
+- { when: always, accept: Control+Shift+4, toggle: simplification }    # 繁简体切换
+- { when: always, accept: Control+Shift+5, toggle: extended_charset }  # 通用/增广切换（显示生僻字）
+- { when: composing, accept: Control+b, send: Left }           # "Control+b" 移动光标
+- { when: composing, accept: Control+f, send: Right }          # "Control+f" 向右选择候选词
+- { when: composing, accept: Control+h, send: BackSpace }      # "Control+h" 删除输入码
 ```
 
-更多快捷键：[点击这里](https://github.com/rime/rime-prelude/blob/master/key_bindings.yaml)
+## 词库格式
 
----
+新建文件命名格式为 `<词库名>.dict.yaml`。
 
-### 回车清码
-
-打开 `default.custom.yaml` 文件，找到下面代码，将前面的 `#` 号开启回车清码（默认为关闭）。
+示例：朙月拼音 AV 女优词库 `luna_pinyin.av.dict.yaml`。
 
 ```
-  # - {accept: Return, send: Escape, when: composing} 
-```
+# 日本 AV 女优
 
----
-
-### 词库文档格式
-
-文件命名为 <词库名>.dict.yaml。 
-
-```
-# 以 --- ... 分别标记出 YAML 文档的起始与结束位置
-# 在 ... 下方空一行
-
----
-name: luna_pinyin            # 词库名
-version: "0.9"               # 版本
-sort: by_weight              # by_weight（词频高低排序）或 original（保持原码表中的顺序）
-use_preset_vocabulary: true  # true 或 false，是否导入预设词汇八股文
+name: luna_pinyin.av  # 要和文件名一致
+version: "2021.12.21"
+sort: by_weight
+use_preset_vocabulary: false
 ...
-
-# 格式每行定义一条〔文字－编码〕，字符与码表之间使用 tab 键，码表之间使用空格键。
-测	ce
-测试	ce shi
-目的地	mu di di
+                              # 此处空一行
+三上悠亞  san shang you ya  1  # 汉字和编码用 Tab 键间隔，拼音之间用空格键
 ```
 
----
+## 词库外挂
 
-### 外挂词库
+打开 `luna_pinyin.extended.dict.yaml`，将词库名添加。
 
-打开 `luna_pinyin.extended.dict.yaml` 文件，找到 `import_tables`，将词库名称添加在下方。
+示例：AV 女优词库 `luna_pinyin.av.dict.yaml` 即输入 `luna_pinyin.av`。
 
 ```
 import_tables:
   - luna_pinyin
+  - luna_pinyin.av
+  - luna_pinyin.chat
   - luna_pinyin.sogou
-  - luna_pinyin.zonghe
 ```
 
----
+## 词库载入
 
-### 修改 Emoji
-
-打开 opencc 文件夹内 `emoji_word.txt` 修改 Emoji。
-
-规则：`字符` + `字符` + `Emoji`；字符之间用 `tab` 键分隔，字符和 Emoji 之间用 `空格` 键分隔。
-
-![](https://tva2.sinaimg.cn/large/008eZBHKly1goxgt4aawqj31ao0geq4o.jpg)
-
----
-
-### 载入词库和 Emoji
-
-打开 `luna_pinyin_simp.custom.yaml` 文件，载入中 / 英文词库和 Emoji。
+打开 `luna_pinyin_simp.custom.yaml`，载入中英文词库，还可以修改英文候选词位置、Emoji 显示注释等。
 
 ```
+patch:
+  # 启用罕见字過濾
   engine/filters:
-      - simplifier
-      - simplifier@emoji_conversion
-      - uniquifier
-      - charset_filter@gbk              # (※3) GBK 过滤
-      - single_char_filter
+    - simplifier
+    - simplifier@emoji_conversion
+    - uniquifier
+    - charset_filter@gbk # (※3) GBK 过滤
+    - single_char_filter
 
   emoji_conversion:
     opencc_config: emoji.json
     option_name: show_emoji
     tags: abc
-    # tips: all    # Emoji 显示注释（去掉 # 开启）
+    #tips: all    # Emoji 显示注释
 
-# 改写拼写运算，含英文的词汇（luna_pinyin.cn_en.dict.yaml）不影响简拼
+  # 改写拼写运算，含英文的词汇（luna_pinyin.cn_en.dict.yaml）不影响简拼
   "speller/algebra/@before 0": xform/^([b-df-hj-np-tv-z])$/$1_/
 
-#  载入朙月拼音扩充词库
+  # 载入朙月拼音扩充词库
   "translator/dictionary": luna_pinyin.extended
 
-# 加载easy_en依赖
+  # 加载easy_en依赖
   "schema/dependencies/@1": easy_en
-# 载入翻译英文的码表翻译器，取名为 english
+  # 载入翻译英文的码表翻译器，取名为 english
   "engine/translators/@4": table_translator@english
-# english翻译器的设定项
+  # english翻译器的设定项
   english:
     dictionary: easy_en
     spelling_hints: 9
-    enable_completion: false      # 是否启用英文输入联想补全
-    enable_sentence: false
-    initial_quality: 1            # 调整英文候选词的位置
+    enable_completion: false # 是否启用英文输入联想补全
+    enable_sentence: false # 混输时不出现带有图案的英文
+    initial_quality: -0.5 # 英文候选词的位置, 数值越大越靠前。
 ```
 
+## 模式转换
 
----
-
-### 自定义快捷字符
-
-打开 `luna_pinyin_simp.custom.yaml` 文件，找到 `punctuator`，修改快捷 Emoji 和符号。
+打开 `luna_pinyin_simp.custom.yaml`，switches 列了：中文西文、全角半角、Emoji、简繁体、字节编码。
 
 ```
- # 符号快速输入和部分符号的快速上屏
-  punctuator:
-    import_preset: symbols
-    symbols:
-      "/fs": [½, ‰, ¼, ⅓, ⅔, ¾, ⅒ ]
-      "/xh": [ ＊, ×, ✱, ★, ☆, ✩, ✧, ❋, ❊, ❉, ❈, ❅, ✿, ✲]
-      "/dq": [🌍,🌎,🌏,🌐,🌑,🌒,🌓,🌔,🌕,🌖,🌗,🌘]
-      "/sg": [🍇,🍉,🍌,🍍,🍎,🍏,🍑,🍒,🍓,🍗,🍦,🎂,🍺,🍻]
-      "/dw": [🙈,🐵,🐈,🐷,🐨,🐼,🐾,🐔,🐬,🐠,🦋]
-      "/bq": [😀,😁,😂,😃,😄,😅,😆,😉,😊,😋,😎,😍,😘,😗]
-      "/ss": [💪,👈,👉,👆,👇,✋,👌,👍,👎,✊,👊,👋,👏,👐]
-    half_shape:
-      "#": "#"
-      "*": "*"
-      "`": "`"
-      "~": "~"
-      "@": "@"
-      "=": "="
-      '\': "、"
-      "%": "%"
-      "$": ["¥", "$", "€", "£", "¢", "¤"]
-      "|": ["|", "｜", "·", "・", "§", "¦", "‖", "︴"]
-      "/": ["/", "÷"]
-      "'": { pair: ["「", "」"] }
-      "[": ["【", "〔", "［"]
-      "]": ["】", "〕", "］"]
-      "<": "《"
-      ">": "》"
-
-  recognizer/patterns/punct: "^/([a-z]+|[0-9]0?)$"
+patch:
+  switches:
+    - name: ascii_mode                   # 0 中文，1 英文
+      reset: 0
+      states: ["中文", "西文"]
+    - name: full_shape                   # 全角/半角符号开关
+      states: ["半角", "全角"]
+    - name: show_emoji                   # Emoji 开关
+      reset: 1
+      states: [ "🈚️️\uFE0E", "🈶️️\uFE0F" ]
+    - name: zh_simp                      # (※1) 繁简转换
+      reset: 1
+      states: ["漢字", "汉字"]
+    - options: ["utf8", "gbk", "gb2312"] # (※2)字符集选单
+      reset: 0                           # 默认 UTF8
+      states:
+        - UTF-8
+        - GBK
+        - GB2312
 ```
 
+## 搜狗词库转换
 
+转换方法：[点击这里](https://ssnhd.com/2022/01/06/sogou-dict/)。本配置里的搜狗词库包含官网 12 个分类（城市、工程、农业、人文、社会、生活、艺术、医学、游戏、娱乐、运动、自然），满足绝大部份用户使用。
 
----
+## Emoji
 
-### 模糊音
+打开 opencc 文件夹内 `emoji_word.txt`，规则：字符用 Tab 键间隔，其他用空格键，简体和繁体都要加入。
 
-例如朙月拼音简化字方案，打开 `luna_pinyin_simp.custom.yaml ` 文件，找到下面代码，去掉前面的 `#` 开启模糊音。 
-
-```
-# 模糊拼音
-  'speller/algebra':
-    - erase/^xx$/                      # 第一行保留
-
-    # 模糊音定義
-    # 需要哪組就刪去行首的 # 號，單雙向任選
-    #- derive/^([zcs])h/$1/             # zh, ch, sh => z, c, s
-    #- derive/^([zcs])([^h])/$1h$2/     # z, c, s => zh, ch, sh
-
-    #- derive/^n/l/                     # n => l
-    #- derive/^l/n/                     # l => n
-```
-
----
-
-### 智能纠错
-
-例如朙月拼音简化字方案，打开 `luna_pinyin_simp.custom.yaml` 文件，找到下面代码，添加或前面添加 `#` 禁用。
+![](/img/rime/emojikaixin.png)
 
 ```
-    # 自動糾正一些常見的按鍵錯誤
-    - derive/([aeiou])ng$/$1gn/        # dagn => dang 
-    - derive/([dtngkhrzcs])o(u|ng)$/$1o/  # zho => zhong|zhou
-    - derive/ong$/on/                  # zhonguo => zhong guo
-    - derive/ao$/oa/                   # hoa => hao
-    - derive/([iu])a(o|ng?)$/a$1$2/    # tain => tian
+开心  开心 😄 😃 😺
+開心  開心 😄 😃 😺
 ```
 
----
+按 `Control + ｀` 组合键，可以选择开启或关闭 Emoji。
 
-### 动态时间、日期、星期
-打开 `Rime.lua` 文件可修改编码和输出格式。
+![](/img/rime/emojioff.png)
 
-* `time` = `时间`
-* `date` = `日期`
-* `week` = `星期`
+## 快捷符号
 
-> 注：时间编码 `time` 可改为 `sj`（注：双拼方案两位字母编码可能会受影响，建议改为不冲突的编码）。
+以朙月拼音为例，打开 `luna_pinyin_simp.custom.yaml`，自行添加修改。
 
-最后将下面代码添加在对应的输入方案里，例如：朙月拼音·简化字方案即添加在 `luna_pinyin_simp.custom.yaml`。
+> 注：打开【用户设定】-【build 文件夹】- `luna_pinyin_simp.schema.yaml` 里有超多快捷符号，将需要修改的快捷符号添加到下面区域。
+
+![](/img/rime/emojikuaijie.png)
 
 ```
-# librime-lua 输入动态时间和日期
-  "engine/translators/@6": lua_translator@date_translator
+"/fs": [½, ‰, ¼, ⅓, ⅔, ¾, ⅒ ]
+"/xh": [ ＊, ×, ✱, ★, ☆, ✩, ✧, ❋, ❊, ❉, ❈, ❅, ✿, ✲]
+"/dq": [🌍,🌎,🌏,🌐,🌑,🌒,🌓,🌔,🌕,🌖,🌗,🌘]
+"/sg": [🍇,🍉,🍌,🍍,🍎,🍏,🍑,🍒,🍓,🍗,🍦,🎂,🍺,🍻]
+"/dw": [🙈,🐵,🐈,🐷,🐨,🐼,🐾,🐔,🐬,🐠,🦋]
+"/bq": [😀,😁,😂,😃,😄,😅,😆,😉,😊,😋,😎,😍,😘,😗]
+"/ss": [💪,👈,👉,👆,👇,✋,👌,👍,👎,✊,👊,👋,👏,👐]
+"#": "#"
+"*": "*"
+"`": "`"
+"~": "~"
+"@": "@"
+"=": "="
+'\': "、"
+"%": "%"
+"$": ["¥", "$"]
+"|": ["|", "｜", "·"]
+"/": ["/", "÷"]
+"'": { pair: ["「", "」"] }  #表示一对
+"[": "【"
+"]": "】"
+"<": "《"
+">": "》"
 ```
 
----
+## 模糊音纠错
 
-### 自定义短语
+打开 `luna_pinyin_simp.custom.yaml`，若关闭前面加 `#`。
 
-打开 `custom_phrase.txt` 文件，编辑短语。
+```
+# 需要哪組就刪去行首的 # 號，單雙向任選
+- derive/^([zcs])h/$1/             # zh, ch, sh => z, c, s
+- derive/^([zcs])([^h])/$1h$2/     # z, c, s => zh, ch, sh
+- derive/^n/l/                     # n => l
+- derive/^l/n/                     # l => n
 
-规则：`文字 + 编码 + 权重`，使用 `Tab` 键分隔。
+# 這兩組一般是單向的
+- derive/^r/l/                     # r => l
+- derive/^ren/yin/                 # ren => yin, reng => ying
+- derive/^r/y/                     # r => y
+
+# 下面 hu <=> f 這組寫法複雜一些，分情況討論
+- derive/^hu$/fu/                  # hu => fu
+- derive/^hong$/feng/              # hong => feng
+- derive/^hu([in])$/fe$1/          # hui => fei, hun => fen
+- derive/^hu([ao])/f$1/            # hua => fa, ...
+- derive/^fu$/hu/                  # fu => hu
+- derive/^feng$/hong/              # feng => hong
+- derive/^fe([in])$/hu$1/          # fei => hui, fen => hun
+- derive/^f([ao])/hu$1/            # fa => hua, ...
+
+# 韻母部份
+- derive/^([bpmf])eng$/$1ong/      # meng = mong, ...
+- derive/([ei])n$/$1ng/            # en => eng, in => ing
+- derive/([ei])ng$/$1n/            # eng => en, ing => in
+
+# 超级简拼
+- abbrev/^([a-z]).+$/$1/           # 簡拼（首字母）
+- abbrev/^([zcs]h).+$/$1/          # 簡拼（zh, ch, sh）
+
+# 智能纠错
+- derive/([aeiou])ng$/$1gn/        # dagn => dang
+- derive/([dtngkhrzcs])o(u|ng)$/$1o/  # zho => zhong|zhou
+- derive/ong$/on/                  # zhonguo => zhong guo
+- derive/ao$/oa/                   # hoa => hao
+- derive/([iu])a(o|ng?)$/a$1$2/    # tain => tian
+```
+
+## 动态时间日期
+
+打开 `Rime.lua`，默认编码如下，双拼用户时间和星期无效，建议改为不冲突编码，例如时间 `sj` 改为 `time`。
+
+- 【日期】`rq` = `2022-01-14`、`2022年01月14日`、`01-14`、`2022/01/14`
+- 【时间】`sj` = `03:11`、`03:11:00`
+- 【星期】`xq` = `周五`、`星期五`、`礼拜五`
+
+```
+function date_translator(input, seg)
+    if (input == "rq") then
+       Candidate(type, start, end, text, comment)
+        yield(Candidate("date", seg.start, seg._end, os.date("%Y-%m-%d"), ""))
+        yield(Candidate("date", seg.start, seg._end, os.date("%Y年%m月%d日"), ""))
+        yield(Candidate("date", seg.start, seg._end, os.date("%m-%d"), ""))
+        yield(Candidate("date", seg.start, seg._end, os.date("%Y/%m/%d"), ""))
+    end
+    if (input == "sj") then
+       Candidate(type, start, end, text, comment)
+        yield(Candidate("time", seg.start, seg._end, os.date("%H:%M"), ""))
+        yield(Candidate("time", seg.start, seg._end, os.date("%H:%M:%S"), ""))
+    end
+    if (input == "xq") then
+        local weakTab = {'日', '一', '二', '三', '四', '五', '六'}
+        yield(Candidate("week", seg.start, seg._end, "周"..weakTab[tonumber(os.date("%w")+1)], ""))
+        yield(Candidate("week", seg.start, seg._end, "星期"..weakTab[tonumber(os.date("%w")+1)], ""))
+        yield(Candidate("week", seg.start, seg._end, "礼拜"..weakTab[tonumber(os.date("%w")+1)], ""))
+    end
+end
+```
+
+再将下面代码添加在对应的输入方案，例如：朙月拼音添加在 `luna_pinyin_simp.custom.yaml`。
+
+```
+"engine/translators/@6": lua_translator@date_translator
+```
+
+## 自定义短语
+
+用文本编辑打开 `custom_phrase.txt`，规则：内容+编码+权重（可选），使用 Tab 键间隔。
 
 示例：
 
 ```
-Rime	rime	4
+Rime  rime	4
 鼠须管	rime	3
 https://rime.im/	rime	2
 Squirrel	rime	1
 ```
 
-效果：
+![](/img/rime/zidingyiduanyu.png)
 
-![](https://i.loli.net/2021/02/23/S3z1lxFm8Kws6nW.png)
+## 皮肤
 
-> 注：自定义短语始终显示在第一候选项。
+打开 `squirrel.custom.yaml`，将皮肤代码添加进去，按照下图说明设置自己喜欢的皮肤。
 
----
-### 皮肤
+* style/color_scheme: 浅色皮肤名称
+* style/color_scheme_dark: 深色皮肤名称
 
-打开 `squirrel.custom.yaml` 文件，将皮肤代码添加进去。
+![](https://i.imgur.com/caSIYQi.png)
+延伸：皮肤效果[点击这里](https://ssnhd.com/2022/01/11/rime-skin)
 
-更换皮肤：在 `style/color_scheme:` 后面修改名称。
+**修改颜色**
 
-例如：`macos_light`，显示效果如顶部效果图。
+- 每 8bit 一组，从低位到高位分别代表 Red、Green、Blue、Alpha，共 32bit。
+- Alpha 值（如果界面支持）是可选的，默认为 `0xF` F 即不透明。
+- 把颜色值写为十六进制数，即 `0xAABBGGRR` 或 `0xBBGGRR`。
 
-```
-  # 更换皮肤
-  style/color_scheme: macos_light
+![](https://i.imgur.com/EG9rFyi.jpg)
 
-  # 皮肤主题 
-  preset_color_schemes:
-  
-    macos_light:
-      back_color: 0xFFFFFF                      # 候选条背景色，24位色值，16进制，BGR顺序
-      border_color: 0xFFFFFF                    # 边框色
-      text_color: 0x424242                      # 拼音行文字颜色
-      hilited_back_color: 0xD75A00              # 第一候选项背景背景色
-      hilited_candidate_text_color: 0xFFFFFF    # 第一候选项文字颜色
-      hilited_candidate_label_color: 0xFFFFFF   # 第一候选项编号颜色
-      hilited_comment_text_color: 0x999999      # 注解文字高亮
-      hilited_text_color: 0x999999              # 高亮拼音 (需要开启内嵌编码)
-      candidate_text_color: 0x3c3c3c            # 预选项文字颜色
-      comment_text_color: 0x999999              # 拼音等提示文字颜色
-      horizontal: true                          # 水平排列
-      inline_preedit: true                      # 单行显示，false双行显示
-      label_color: 0x999999                     # 预选栏编号颜色
-      candidate_format: "%c\u2005%@"            # 用 1/6 em 空格 U+2005 来控制编号 %c 和候选词 %@ 前后的空间
-      font_face: "PingFangSC"                   # 候选词编号字体
-      font_point: 16              # 候选文字大小
-      label_font_point: 13        # 候选编号大小
-      corner_radius: 5            # 候选条圆角
-      hilited_corner_radius: 5    # 高亮圆角
-      border_height: 4            # 窗口上下高度
-      border_width: 4             # 窗口左右宽度
-      border_color_width: 0       # 输入条边框宽度
-```
+## 特定程序中英文
 
+打开 `squirrel.custom.yaml`，将程序标识符添加进去，并输入对应模式开启默认中英文。
 
+- `ascii_mode: true`：默认英文
+- `ascii_mode: false`：默认中文
+- `ascii_punct: true`：开启英文标点
 
-* 每 8bit 一组，从低位到高位分别代表 Red、Green、Blue、Alpha，共 32bit。
-* Alpha 值（如果界面支持）是可选的，默认为 `0xF` F 即不透明。
-* 把颜色值写为十六进制数，即 `0xAABBGGRR` 或 `0xBBGGRR`。
-
-![](https://ww1.sinaimg.cn/large/008eZBHKgy1gn45ifbfhnj311r0kw769.jpg)
-
-> 更多皮肤效果：[点击这里](https://github.com/liuour/rime-pifu)。
-
----
-
-### 关闭 Emoji
-
-按 `Control + ｀` 组合键，选择输入方案。
-
-* 关闭 Emoji 选择 🈶 → 🈚️
-* 开启 Emoji 选择 🈚️ → 🈶
-
-![](https://tvax4.sinaimg.cn/large/008eZBHKly1gp3nfu2fenj31ao04s3z0.jpg)
-
----
-
-### 特定程序里关闭开启中文输入
-
-打开 `squirrel.custom.yaml` 文件，找到 `app_options:`，在下方输入程序目录名称。
-* `ture` 为关闭中文输入
-* `false` 为开启中文输入
-
-示例：
-```
-  app_options:    # App关闭中文输入
-    #com.apple.Spotlight:            # 聚焦搜索
-        #ascii_mode: true
-    #com.runningwithcrayons.Alfred:  # afred
-        #ascii_mode: true
-    com.apple.Terminal:             # 终端
-        ascii_mode: true
-    com.microsoft.VSCode:           # Visual Studio Code
-        ascii_mode: false           # 开启中文输入
-```
-
-> 如何获取程序安装目录下的名称？感谢 [@loong1992](https://github.com/loong1992) 提醒！[#25](https://github.com/maomiui/rime/issues/25)
-> 1. 打开**活动监视器**，选中对应程序，点击上方 `···` 再点选**取样进程**。
-> 2. 找到 `Identifier`，后面的编码即为该程序名称。
-
----
-
-### 特定程序里中文输入英文标点
-
-打开 `squirrel.custom.yaml` 文件，找到 `app_options:`，在指定程序里加入 `ascii_punct: true`。
-
-示例：在 Visual Studio Code 程序里中文状态输入英文标点。
+示例：VSCode 默认英文输入，始终输出英文标点（半角）。
 
 ```
-  app_options:    # App关闭中文输入
-    com.microsoft.VSCode:           # Visual Studio Code
-        ascii_mode: false           # 开启中文输入
-        ascii_punct: true           # 半角符号即中文状态输入英文标点
+com.microsoft.VSCode:
+    ascii_mode: true
+    sacii_punct: true
 ```
 
----
+**延伸：如何获取程序标识符？**
 
-### 删除误上屏的错词
+1. 打开 Mac 活动监视器，选中程序，点击上方 `···` 里**取样进程**。
+2. 找到 `Identifier` 后面即为程序标识符。
 
-将光标（`↑` `↓`或`←` `→`）移到要删除的词组上，按 `Shift + Fn + Delete` 键（第三方键盘按   `Control + Delete`）。
+![](/img/rime/app.png)
 
-> 注：只能从用户词典中删除词组；词库里词组只会取消其调频顺序。
+## 大写数字
 
+配置文件是 `numbers.schema.yaml`。切换输入方案选择大写数字，使用方法参照下表。
 
----
-### 大写数字
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>输出</th>
+<th>✂️</th>
+<th>按键（按住Shift）</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1234567890</td>
+<td>壹贰叁肆伍陆柒捌玖零</td>
+<td>✂️</td>
+<td>1234567890</td>
+<td>一二三四五六七八九〇</td>
+</tr>
+<tr>
+<td>wqbsjfd.</td>
+<td>万仟佰拾角分第点</td>
+<td>✂️</td>
+<td>wqbsjfd.</td>
+<td>万千百十角分第点</td>
+</tr>
+<tr>
+<td>z</td>
+<td>整之</td>
+<td>✂️</td>
+<td>z</td>
+<td>整之</td>
+</tr>
+<tr>
+<td>y</td>
+<td>元月亿</td>
+<td>✂️</td>
+<td>y</td>
+<td>元月亿</td>
+</tr>
+</tbody>
+</table>
 
-配置内 `numbers.schema.yaml` 为大写数字文件。
+![](https://i.imgur.com/RQdg63e.gif)
 
-将下面代码添加在 `default.custom.yaml`（本配置默认已添加），快捷键 `Control+｀` 切换方案选择**大写数字**。
+## 删除错词
+
+将光标（`↑` `↓`或`←` `→`）移到要删除的词组上，按 `Shift+Fn+Delete` 键（第三方键盘按 `Control+Delete`）。只能从用户词典中删除词组，词库里词组只会取消其调频顺序。
+
+## 同步
+
+### 同步至 iCloud
+
+1、配置文件里打开 `installation.yaml`，将 `id` 改为 Mac（支持自定义）。\
+2、复制下面路径代码粘贴进去，将 `admin` 替换为 Mac 管理员名称（代码里 `RimeSync` 是同步后文件夹名称，支持自定义）。
 
 ```
-- schema: numbers               # 大写数字
+sync_dir: "/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/RimeSync"
 ```
 
-| 按键  |  输出 |
-|---|---|
-| 1234567890  | 壹贰叁肆伍陆柒捌玖零  |
-| wqbsjfd.  |  万仟佰拾角分第点 |
-|  z | 整之  |
-|  y | 元月亿  |
+![](https://i.imgur.com/QxLdF8m.png)
+3、点击菜单栏【ㄓ】-【同步用户数据】，等待几秒提示同步成功。打开访达 iCloud 找到名为 RimeSync 的文件即是。
 
+其他同步方案：[点击这里](https://github.com/rime/home/wiki/UserGuide#同步用戶資料)
 
-|  按键（按住Shift） | 输出  |
-|---|---|
-| 1234567890  | 一二三四五六七八九〇  |
-|  wqbsjfd. |  万千百十角分第点 |
-| z  | 整之  |
-| y  | 元月亿  |
+### iCloud 词库同步至新配置
 
-示例：
+1. 配置文件里打开 `installation.yaml`，将 id 和路径改成与 iCloud 同步文件 `installation.yaml` 里的一至。
+2. 点击菜单栏【ㄓ】-【同步用户数据】，此时你之前的个人词库已经同步到新配置里。
 
-![](https://i.loli.net/2021/04/14/qYxrowydRaAUvzP.gif)
+![](https://i.imgur.com/gnT0FiK.png)
 
+## 报错日志
 
----
+打开终端输入 `$TMPDIR/rime.Squirrel.INFO` 按回车键，复制路径地址在访达中打开。
 
-### 同步用户数据
-
-同步到 iCloud 云盘，在 iCloud 云盘内新建个文件夹。
-
-1. 打开 ` installation.yaml` 文件，修改 `installation_id` 后面的 UUID。
-
-2. 再输入以下代码（admin 修改为您的 Mac 用户名）。
-
-```
- sync_dir: "/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Rime"
-```
-示例：
-
-```
-distribution_code_name: Squirrel
-distribution_name: "鼠鬚管"
-distribution_version: 0.15.2
-install_time: "Tue Feb 23 04:21:16 2021"
-installation_id: "mac"	# 修改id, 同步时会在同步目录下生成文件夹，文件夹名对应id
-sync_dir: "/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Rime"  # 同步和备份目录至iCloud云盘
-rime_version: 1.7.3
-update_time: "Thu Feb 25 16:18:53 2021"
-```
-
-
-1. 点选菜单栏【ㄓ】->【同步用户数据】，打开 iCloud 云盘可查看。
-
-![](https://i.loli.net/2021/03/01/3WGFzIevCr69j8n.png)
-
-延伸：词库同步至新 Mac 方法：
-
-1. 将同步备份的文件拷贝至新 Mac。
-2. 新 Mac 安装鼠须管，设置好配置方案，打开 ` installation.yaml` 文件，将 UUID 和路径修改为同步文件一至，重新部署。
-
-更多同步方案：[点击这里](https://github.com/rime/home/wiki/UserGuide#%E5%90%8C%E6%AD%A5%E7%94%A8%E6%88%B6%E8%B3%87%E6%96%99)
-
----
-
-### 报错日志
-
-打开**终端**输入 `$TMPDIR/rime.Squirrel.INFO` 按回车键，复制路径地址在访达中打开。
-
-![](https://tva3.sinaimg.cn/large/008eZBHKgy1gq3krzyftbj311w09qgm4.jpg)
+![](https://i.imgur.com/t2YlmrY.jpg)
 
 找到【rime.squirrel.INFO】文件，右击点选**显示原身**得到日志文件。
 
-![](https://tvax2.sinaimg.cn/large/008eZBHKgy1gq3kwsm5vvj31l00outbn.jpg)
+![](https://i.imgur.com/Ss0wEau.jpg)
 
----
+## 关于词频
 
-### 卸载鼠须管
+配置里搜狗词库已经附带词频，可以满足绝大部分用户需求，初次使用极少部分词频不完全在首位，稍微用几日即可。
 
-1. 打开系统盘好设置 - 键盘 - 输入法，移除【鼠须管】。
-2. 打开访达并按下 `command + shift + G` 前往 `/Library/Input Methods` 文件夹，删除【Squirrel.app】。
-3. 如上，前往 `~/Library` 并删除文件夹【Rime】。
-4. 重新登入系统，确保清理完毕。
-
-🔝[返回目录](#目录)
